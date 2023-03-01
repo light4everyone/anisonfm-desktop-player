@@ -1,0 +1,24 @@
+.image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  grid-area: image;
+  -webkit-app-region: no-drag;
+}
+
+.track-title {
+  grid-area: track-title;
+  text-align: center;
+  place-self: center;
+  text-decoration: none;
+  color: rgba(255, 255, 255, 0.75);
+  -webkit-app-region: no-drag;
+}
+
+.duration {
+  display: inline-block;
+  font-weight: 500;
+
+  grid-area: duration;
+  place-self: center;
+}
