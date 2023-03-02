@@ -1,10 +1,8 @@
 import { Player } from '../pages/player';
 import './index.scss';
 
-const App = () => {
+export const App = () => {
   return (
     <Player></Player>
   );
 };
-
-export default App;
