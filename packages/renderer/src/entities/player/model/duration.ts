@@ -1,6 +1,5 @@
-import { createEvent, createStore, sample } from 'effector';
-import { interval, condition, debounce } from 'patronum';
-
+import {createEvent, createStore, sample} from 'effector';
+import {interval, condition, debounce} from 'patronum';
 
 const total = createStore(0);
 
@@ -26,15 +25,15 @@ condition({
 sample({
   clock: timer.tick,
   source: total,
-  fn: (total) => total - 1,
-  target: setDuration
+  fn: total => total - 1,
+  target: setDuration,
 });
 
 export const $duration = sample({
   source: total,
-  fn: (total) => ({
+  fn: total => ({
     total,
     seconds: total % 60,
-    minutes: (total - (total % 60)) / 60
-  })
+    minutes: (total - (total % 60)) / 60,
+  }),
 });

@@ -1,10 +1,10 @@
-import { getStatus } from '@/shared/api/anison-status.api';
-import { createEffect, createEvent, createStore, sample } from 'effector';
-import { reset, spread } from 'patronum';
-import { statusMapper } from '../lib/status-mapper';
-import { setDuration } from './duration';
+import {getStatus} from '@/shared/api/anison-status.api';
+import {createEffect, createEvent, createStore, sample} from 'effector';
+import {reset, spread} from 'patronum';
+import {statusMapper} from '../lib/status-mapper';
+import {setDuration} from './duration';
 
-export { $duration } from './duration';
+export {$duration} from './duration';
 
 export interface Status {
   duration: number;
@@ -33,13 +33,7 @@ const getStatusFx = createEffect(async () => {
 
 reset({
   clock: resetInfo,
-  target: [
-    $song,
-    $anime,
-    $animeImageUrl,
-    $animeUrl,
-    $trackInfoReceived
-  ],
+  target: [$song, $anime, $animeImageUrl, $animeUrl, $trackInfoReceived],
 });
 
 sample({
@@ -66,6 +60,6 @@ spread({
     song: $song,
     anime: $anime,
     posterUrl: $animeImageUrl,
-    animeUrl: $animeUrl
+    animeUrl: $animeUrl,
   },
 });

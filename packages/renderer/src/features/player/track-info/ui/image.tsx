@@ -1,5 +1,5 @@
-import { playerModel } from '@/entities/player';
-import { useUnit } from 'effector-react';
+import {playerModel} from '@/entities/player';
+import {useUnit} from 'effector-react';
 import styles from './track-info.module.scss';
 
 export const Image = () => {
@@ -10,7 +10,12 @@ export const Image = () => {
 
   return (
     <>
-      {trackInfoReceived && <img className={styles.image} src={animeImageUrl} />}
+      {trackInfoReceived && (
+        <img
+          className={styles.image}
+          src={animeImageUrl}
+        />
+      )}
     </>
   );
 };

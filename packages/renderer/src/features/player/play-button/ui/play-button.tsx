@@ -1,9 +1,9 @@
-import { Play } from './play-icon';
-import { Stop } from './stop-icon';
-import { playerModel } from '@/entities/player';
+import {Play} from './play-icon';
+import {Stop} from './stop-icon';
+import {playerModel} from '@/entities/player';
 
 import styles from './play-button.module.scss';
-import { useUnit } from 'effector-react';
+import {useUnit} from 'effector-react';
 
 export const PlayButton = () => {
   const [isPlaying, stop, play] = useUnit([
@@ -21,7 +21,10 @@ export const PlayButton = () => {
   };
 
   return (
-    <div className={styles['play-button']} onClick={toggle}>
+    <div
+      className={styles['play-button']}
+      onClick={toggle}
+    >
       <div className={styles.background}></div>
 
       <div className={styles['icon-container']}>

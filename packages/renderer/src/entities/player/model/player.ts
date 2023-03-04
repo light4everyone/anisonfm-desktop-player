@@ -1,6 +1,6 @@
-import { attach, combine, createEvent, createStore, sample } from 'effector';
-import { Howl } from 'howler';
-import { interval } from 'patronum';
+import {attach, combine, createEvent, createStore, sample} from 'effector';
+import {Howl} from 'howler';
+import {interval} from 'patronum';
 import {
   $animeImageUrl,
   $anime,
@@ -11,10 +11,10 @@ import {
   $trackInfoReceived,
   $duration,
 } from './track-info';
-import { $volume, changeVolume } from './volume';
+import {$volume, changeVolume} from './volume';
 
 const $player = createStore<Howl | null>(null);
-const $ready = $player.map((p) => p != null);
+const $ready = $player.map(p => p != null);
 const $isPlaying = createStore<boolean>(false);
 
 const initPlayer = createEvent();
@@ -36,8 +36,8 @@ navigator.mediaSession.setActionHandler('pause', () => stop());
 navigator.mediaSession.setActionHandler('stop', () => stop());
 
 const createPlayerFx = attach({
-  source: combine({ player: $player, volume: $volume }),
-  effect: ({ player, volume }) => {
+  source: combine({player: $player, volume: $volume}),
+  effect: ({player, volume}) => {
     if (player == null) {
       const howl: Howl = new Howl({
         src: 'https://pool.anison.fm/AniSonFM(320)',
@@ -59,7 +59,7 @@ const createPlayerFx = attach({
 
 const destroyPlayerFx = attach({
   source: $player,
-  effect: (player) => {
+  effect: player => {
     if (player != null) {
       player.unload();
     }
@@ -68,7 +68,7 @@ const destroyPlayerFx = attach({
 
 const playPlayerFx = attach({
   source: $player,
-  effect: (player) => {
+  effect: player => {
     if (player != null) {
       player.play();
     }
@@ -77,7 +77,7 @@ const playPlayerFx = attach({
 
 const stopPlayerFx = attach({
   source: $player,
-  effect: (player) => {
+  effect: player => {
     if (player != null) {
       player.stop();
     }

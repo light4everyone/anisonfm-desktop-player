@@ -1,12 +1,14 @@
-import { ReactNode, useEffect, useRef, useState } from 'react';
-import { PlayButton } from '@/features/player/play-button';
+import type {ReactNode} from 'react';
+import { useEffect, useRef, useState} from 'react';
+import {PlayButton} from '@/features/player/play-button';
 import styles from './player.module.scss';
 import clsx from 'clsx';
-import { createGate, useGate, useUnit } from 'effector-react';
-import { playerModel } from '@/entities/player';
-import { Event, sample } from 'effector';
-import { Volume } from '@/features/player/volume';
-import { Duration, Image, Song } from '@/features/player/track-info';
+import {createGate, useGate} from 'effector-react';
+import {playerModel} from '@/entities/player';
+import type {Event} from 'effector';
+import { sample} from 'effector';
+import {Volume} from '@/features/player/volume';
+import {Duration, Image, Song} from '@/features/player/track-info';
 
 const pageGate = createGate();
 
@@ -37,12 +39,12 @@ export const Player = () => {
   ) : null;
 };
 
-const PlayerContainer = ({ children }: { children: ReactNode }) => {
+const PlayerContainer = ({children}: {children: ReactNode}) => {
   const [hidePlayer, resetTimer] = useHidePlayerCountdownTimer(5000);
 
   return (
     <div
-      className={clsx(styles.player, { [styles.hide]: hidePlayer })}
+      className={clsx(styles.player, {[styles.hide]: hidePlayer})}
       onMouseOver={resetTimer}
     >
       {children}

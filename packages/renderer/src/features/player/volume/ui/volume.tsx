@@ -1,5 +1,5 @@
-import { playerModel } from '@/entities/player';
-import { useUnit } from 'effector-react';
+import {playerModel} from '@/entities/player';
+import {useUnit} from 'effector-react';
 import styles from './volume.module.scss';
 
 export const Volume = () => {
@@ -14,7 +14,7 @@ export const Volume = () => {
       type="range"
       id="volume"
       name="volume"
-      onChange={(event) => changeVolume(+event.target.value)}
+      onChange={event => changeVolume(+event.target.value)}
       min="0.00"
       max="0.5"
       step="0.02"

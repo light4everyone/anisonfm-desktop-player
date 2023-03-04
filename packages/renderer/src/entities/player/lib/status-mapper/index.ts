@@ -1,1 +1,1 @@
-export { statusMapper } from './status-mapper';
+export {statusMapper} from './status-mapper';

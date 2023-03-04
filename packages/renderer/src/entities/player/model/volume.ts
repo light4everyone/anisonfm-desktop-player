@@ -1,8 +1,6 @@
-import { createStore, createEvent, createEffect, sample } from 'effector';
+import {createStore, createEvent, createEffect, sample} from 'effector';
 
-export const $volume = createStore<number>(
-  +(localStorage.getItem('volume') ?? 0)
-);
+export const $volume = createStore<number>(+(localStorage.getItem('volume') ?? 0));
 
 export const changeVolume = createEvent<number>();
 

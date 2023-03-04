@@ -1,5 +1,5 @@
-import { playerModel } from '@/entities/player';
-import { useUnit } from 'effector-react';
+import {playerModel} from '@/entities/player';
+import {useUnit} from 'effector-react';
 import styles from './track-info.module.scss';
 
 export const Song = () => {
@@ -13,7 +13,11 @@ export const Song = () => {
   return (
     <>
       {trackInfoReceived && (
-        <a href={animeUrl} target="_blank" className={styles['track-title']}>
+        <a
+          href={animeUrl}
+          target="_blank"
+          className={styles['track-title']}
+        >
           {anime}
           <br />
           {song}

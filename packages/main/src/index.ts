@@ -40,34 +40,24 @@ app
   .then(restoreOrCreateWindow)
   .catch(e => console.error('Failed create window:', e));
 
-app
-  .whenReady()
-  .then(() => {
-    const filter = {
-      urls: ['https://anison.fm/status.php'],
-    };
-    
-    session.defaultSession.webRequest.onBeforeSendHeaders(
-      filter,
-      (details, callback) => {
-        details.requestHeaders['Referer'] = 'https://anison.fm';
-        details.requestHeaders['Origin'] = 'https://anison.fm';
-        callback({ cancel: false, requestHeaders: details.requestHeaders });
-      }
-    );
+app.whenReady().then(() => {
+  const filter = {
+    urls: ['https://anison.fm/status.php'],
+  };
 
-    session.defaultSession.webRequest.onHeadersReceived(
-      filter,
-      (details, callback) => {
-        const {origin} = new URL(details!.webContents!.getURL());
-
-        details.responseHeaders!['Access-Control-Allow-Origin'] = [
-          origin
-        ];
-        callback({ responseHeaders: details.responseHeaders });
-      }
-    );
+  session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {
+    details.requestHeaders['Referer'] = 'https://anison.fm';
+    details.requestHeaders['Origin'] = 'https://anison.fm';
+    callback({cancel: false, requestHeaders: details.requestHeaders});
   });
+
+  session.defaultSession.webRequest.onHeadersReceived(filter, (details, callback) => {
+    const {origin} = new URL(details!.webContents!.getURL());
+
+    details.responseHeaders!['Access-Control-Allow-Origin'] = [origin];
+    callback({responseHeaders: details.responseHeaders});
+  });
+});
 
 /**
  * Install Vue.js or any other extension in development mode only.
