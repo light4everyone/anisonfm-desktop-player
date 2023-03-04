@@ -1,12 +1,12 @@
 import type {ReactNode} from 'react';
-import { useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {PlayButton} from '@/features/player/play-button';
 import styles from './player.module.scss';
 import clsx from 'clsx';
 import {createGate, useGate} from 'effector-react';
 import {playerModel} from '@/entities/player';
 import type {Event} from 'effector';
-import { sample} from 'effector';
+import {sample} from 'effector';
 import {Volume} from '@/features/player/volume';
 import {Duration, Image, Song} from '@/features/player/track-info';
 
