@@ -1,9 +1,26 @@
-import {app, BrowserWindow} from 'electron';
+import {app, BrowserWindow, screen} from 'electron';
 import {join} from 'node:path';
 import {URL} from 'node:url';
 
 async function createWindow() {
+  const display = screen.getPrimaryDisplay();
+  const displayWidth = display.workArea.width;
+  const displayWeight = display.workArea.height;
+
+  const width = 230;
+  const height = 360;
+  const yOffset = 10;
+  const xOffset = 10;
+
   const browserWindow = new BrowserWindow({
+    height,
+    width,
+    x: displayWidth - width - xOffset,
+    y: displayWeight - height - yOffset,
+    frame: false,
+    alwaysOnTop: true,
+    resizable: false,
+    transparent: true,
     show: false, // Use the 'ready-to-show' event to show the instantiated BrowserWindow.
     webPreferences: {
       nodeIntegration: false,
@@ -26,7 +43,7 @@ async function createWindow() {
     browserWindow?.show();
 
     if (import.meta.env.DEV) {
-      browserWindow?.webContents.openDevTools();
+      browserWindow?.webContents.openDevTools({ mode: 'undocked' });
     }
   });
 

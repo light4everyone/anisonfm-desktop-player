@@ -33,21 +33,49 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16 # Need for npm >=7.7
-          cache: 'npm'
+          node-version: 16
 
-      - run: npm ci
+      - uses: pnpm/action-setup@v2
+        name: Install pnpm
+        id: pnpm-install
+        with:
+          version: 7
+          run_install: false
+
+      # temp
+      - run: npm i
         env:
           PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1
 
       - run: npm run build
+
+
+      # - name: Get pnpm store directory
+      #   id: pnpm-cache
+      #   shell: bash
+      #   run: |
+      #     echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+      # - uses: actions/cache@v3
+      #   name: Setup pnpm cache
+      #   with:
+      #     path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+      #     key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-pnpm-store-
+
+      # - name: Install dependencies
+      #   run: pnpm install
+
+      # - name: Build
+      #   run: pnpm run build
 
       - name: Compile artifacts ${{ inputs.dry-run && '' || 'and upload them to github release' }}
         # I use this action because it is capable of retrying multiple times if there are any issues with the distribution server
         uses: nick-fields/retry@v2
         with:
           timeout_minutes: 15
-          max_attempts: 6
+          max_attempts: 2
           retry_wait_seconds: 15
           retry_on: error
           shell: 'bash'

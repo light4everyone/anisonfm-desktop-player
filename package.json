@@ -1,12 +1,12 @@
 {
-  "name": "vite-electron-builder",
-  "description": "Secure boilerplate for Electron app based on Vite",
+  "name": "anisonfm-desktop-player",
+  "description": "AnisonFM Player",
   "version": "1.0.2",
   "private": true,
   "author": {
-    "email": "kozackunisoft@gmail.com",
-    "name": "Alex Kozack",
-    "url": "https://kozack.me"
+    "email": "jenea94@gmail.com",
+    "name": "Evgheni Cerneavschi",
+    "url": "https://github.com/light4everyone"
   },
   "main": "packages/main/dist/index.cjs",
   "scripts": {
