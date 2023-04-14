@@ -13,16 +13,21 @@ import {
 } from './track-info';
 import {$volume, changeVolume} from './volume';
 
-const $player = createStore<Howl | null>(null);
-const $ready = $player.map(p => p != null);
-const $isPlaying = createStore<boolean>(false);
-
 const initPlayer = createEvent();
 const destroyPlayer = createEvent();
 const play = createEvent();
 const stop = createEvent();
 const playStarted = createEvent();
 const playStopped = createEvent();
+const mute = createEvent();
+const unmute = createEvent();
+
+const $player = createStore<Howl | null>(null);
+const $ready = $player.map(p => p != null);
+const $isPlaying = createStore<boolean>(false);
+const $mute = createStore<boolean>(false)
+  .on(mute, () => true)
+  .on(unmute, () => false);
 
 const timerTick = interval({
   start: playStarted,
@@ -93,6 +98,24 @@ const changeVolumeInPlayerFx = attach({
   },
 });
 
+const muteFx = attach({
+  source: $player,
+  effect: player => {
+    if (player != null) {
+      player.mute(true);
+    }
+  },
+});
+
+const unmuteFx = attach({
+  source: $player,
+  effect: player => {
+    if (player != null) {
+      player.mute(false);
+    }
+  },
+});
+
 $player.on(createPlayerFx.doneData, (_, player) => player);
 $player.reset(destroyPlayerFx.done);
 
@@ -143,6 +166,16 @@ sample({
   target: resetInfo,
 });
 
+sample({
+  clock: mute,
+  target: muteFx,
+});
+
+sample({
+  clock: unmute,
+  target: unmuteFx,
+});
+
 export const stores = {
   $isPlaying,
   $ready,
@@ -153,6 +186,7 @@ export const stores = {
   $animeUrl,
   $trackInfoReceived,
   $duration,
+  $mute,
 };
 
 export const events = {
@@ -161,4 +195,6 @@ export const events = {
   initPlayer,
   destroyPlayer,
   changeVolume,
+  mute,
+  unmute,
 };

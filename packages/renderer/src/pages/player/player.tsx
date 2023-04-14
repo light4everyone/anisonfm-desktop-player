@@ -9,6 +9,7 @@ import type {Event} from 'effector';
 import {sample} from 'effector';
 import {Volume} from '@/features/player/volume';
 import {Duration, Image, Song} from '@/features/player/track-info';
+import {MuteButton} from '@/features/player/mute-button';
 
 const pageGate = createGate();
 
@@ -34,6 +35,7 @@ export const Player = () => {
       <Song />
       <PlayButton />
       <Duration />
+      <MuteButton />
       <Volume />
     </PlayerContainer>
   ) : null;

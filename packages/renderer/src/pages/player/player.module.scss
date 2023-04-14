@@ -13,12 +13,12 @@
 
   display: grid;
   grid-template-columns: 1fr 50px 50px 50px 1fr;
-  grid-template-rows: 1fr minmax(30px, min-content) 45px 20px;
+  grid-template-rows: 1fr minmax(30px, min-content) 45px 25px;
   grid-template-areas:
     '.           image       image       image       .          '
     'track-title track-title track-title track-title track-title'
     '.           .           play        duration     .          '
-    'volume      volume      volume      volume      volume     ';
+    'mute      volume      volume      volume      volume     ';
 
   &.hide {
     animation-fill-mode: forwards;

@@ -1,10 +1,11 @@
 .volume {
   grid-area: volume;
   align-self: center;
+  appearance: none;
   -webkit-appearance: none;
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 5px;
-  height: 10px;
+  height: 7px;
   user-select: none;
   outline: none;
 

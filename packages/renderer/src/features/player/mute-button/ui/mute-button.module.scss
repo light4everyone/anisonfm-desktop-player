@@ -1,0 +1,17 @@
+.mute-button {
+	grid-area: mute;
+	fill: rgba(255, 255, 255, 0.75);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	-webkit-app-region: no-drag;
+	cursor: pointer;
+
+	&.muted {
+		fill: #e91e63;
+	}
+}
+
+svg {
+	height: 100%;
+}
