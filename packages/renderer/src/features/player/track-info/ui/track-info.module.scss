@@ -4,6 +4,7 @@
   object-fit: cover;
   grid-area: image;
   -webkit-app-region: no-drag;
+  user-select: none;
 }
 
 .track-title {
@@ -13,6 +14,7 @@
   text-decoration: none;
   color: rgba(255, 255, 255, 0.75);
   -webkit-app-region: no-drag;
+  user-select: none;
 }
 
 .duration {
@@ -21,4 +23,5 @@
 
   grid-area: duration;
   place-self: center;
+  user-select: none;
 }

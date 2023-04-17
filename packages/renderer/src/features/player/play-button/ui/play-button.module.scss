@@ -6,7 +6,7 @@
   position: relative;
   cursor: pointer;
   -webkit-app-region: no-drag;
-
+  user-select: none;
   grid-area: play;
   place-self: center;
 

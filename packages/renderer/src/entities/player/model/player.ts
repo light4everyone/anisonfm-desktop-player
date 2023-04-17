@@ -17,14 +17,20 @@ const initPlayer = createEvent();
 const destroyPlayer = createEvent();
 const play = createEvent();
 const stop = createEvent();
+const pause = createEvent();
 const playStarted = createEvent();
 const playStopped = createEvent();
+const playPaused = createEvent();
 const mute = createEvent();
 const unmute = createEvent();
 
 const $player = createStore<Howl | null>(null);
 const $ready = $player.map(p => p != null);
-const $isPlaying = createStore<boolean>(false);
+
+const $isPlaying = createStore<boolean>(false)
+ .on([playPaused, playStopped], () => false)
+ .on(play, () => true);
+
 const $mute = createStore<boolean>(false)
   .on(mute, () => true)
   .on(unmute, () => false);
@@ -37,7 +43,7 @@ const timerTick = interval({
 }).tick;
 
 navigator.mediaSession.setActionHandler('play', () => play());
-navigator.mediaSession.setActionHandler('pause', () => stop());
+navigator.mediaSession.setActionHandler('pause', () => pause());
 navigator.mediaSession.setActionHandler('stop', () => stop());
 
 const createPlayerFx = attach({
@@ -54,7 +60,7 @@ const createPlayerFx = attach({
       });
 
       howl.on('play', () => playStarted());
-      howl.on('pause', () => playStopped());
+      howl.on('pause', () => playPaused());
       howl.on('stop', () => playStopped());
 
       return howl;
@@ -85,6 +91,15 @@ const stopPlayerFx = attach({
   effect: player => {
     if (player != null) {
       player.stop();
+    }
+  },
+});
+
+const pausePlayerFx = attach({
+  source: $player,
+  effect: player => {
+    if (player != null) {
+      player.pause();
     }
   },
 });
@@ -140,20 +155,13 @@ sample({
 });
 
 sample({
-  clock: play,
-  fn: () => true,
-  target: $isPlaying,
-});
-
-sample({
   clock: stop,
   target: stopPlayerFx,
 });
 
 sample({
-  clock: playStopped,
-  fn: () => false,
-  target: $isPlaying,
+  clock: pause,
+  target: pausePlayerFx,
 });
 
 sample({

@@ -1,5 +1,5 @@
 import {getStatus} from '@/shared/api/anison-status.api';
-import {createEffect, createEvent, createStore, sample} from 'effector';
+import {combine, createEffect, createEvent, createStore, sample} from 'effector';
 import {reset, spread} from 'patronum';
 import {statusMapper} from '../lib/status-mapper';
 import {setDuration} from './duration';
@@ -62,4 +62,25 @@ spread({
     posterUrl: $animeImageUrl,
     animeUrl: $animeUrl,
   },
+});
+
+sample({
+  source: combine({
+    animeImageUrl: $animeImageUrl,
+    song: $song,
+    anime: $anime
+  }),
+  target: createEffect(({ animeImageUrl, song, anime }: { animeImageUrl: string, song: string, anime: string }) => {
+    navigator.mediaSession.metadata = new MediaMetadata({
+      title: song,
+      artist: anime,
+      artwork: [
+        {
+          src: animeImageUrl,
+          sizes: '150x230',
+          type: 'image/png',
+        }
+      ],
+    });
+  })
 });
